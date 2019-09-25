@@ -1,0 +1,262 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background: #fff;
+    font-size: 30px;
+	margin: 0;
+}
+ul {
+    list-style-type:none;
+}
+/*-----logo-----*/
+.logo{
+	width:100%;
+	height:100px;
+	margin:10px auto;
+	overflow:hidden;
+	background:#fbfafa;
+}
+.logoBox{
+	width:1100px;
+	margin:0 auto;
+    overflow: hidden;
+}
+.logo01{
+    float: left;
+}
+.logo02{
+    float: right;
+}
+/*-----nav-----*/
+.nav {
+    width:100%;
+	background:#0a488f
+}
+.nav ul {
+    list-style-type:none;
+    margin:0 auto;
+    overflow:hidden;
+    width:1100px;
+}
+.nav li {
+    float:right;
+}
+.nav li a {
+    display:block;
+    color:white;
+	font-size: 20px;
+    text-align:center;
+    padding:14px 16px;
+    text-decoration:none;
+}
+.nav li:hover{
+    background-color:#0797e2;
+}
+.nav li .title{
+    font-family:"宋体";
+	font-size: 25px;
+}
+/*-----main-----*/
+.main{
+	overflow: hidden;
+    padding: 100px 0;
+    background: #fbfafa;
+}
+.main ul{
+	margin:0% 10%;
+	padding:0;
+	top:0;
+	width:80%;
+}
+.main ul li{
+    list-style: none;
+    display: block;
+    width: 30%;
+    float: left;
+    margin-right: 5%;
+    text-align: center;
+}
+.main ul li:last-child{
+    margin-right: 0px;
+}
+.main ul li h1{
+    color: #616771;
+    font-family: "黑体";
+    font-weight: bold;
+    font-size: 23px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+.main ul li p{
+    color: #898d94;
+    font-family: "宋体";
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: 1px;
+}
+/*-----video------*/
+.video{
+    padding: 50px 20%;
+    padding-bottom: 100px;
+    height:800px;
+}
+.video h2{
+	text-align:center;
+	color: #616771;
+    font-family: "Arial","Microsoft YaHei","黑体",sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+.video p{
+    text-align:center;
+	color: #616771;
+    font-family: "宋体";
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    line-height:25px;
+}
+.video .left{
+	width:50%;
+	height:50%;
+    float:left;
+    text-align:center;
+    margin-bottom: 20px;
+    border:1px solid #bbe1f1;
+    background:#eefaff
+}
+.video .left .text{
+    width:100%;
+	height:10%;
+    margin-top: 5%;
+}
+.video .information{
+    margin-top: 5%;
+    width:50%;
+    height:30%;
+    float:left;
+    text-align: center;
+}
+.video textarea{
+    width: 450px;
+    height: 150px;
+    font-family: "黑体";
+    font-weight: bold;
+    font-size: 26px;
+}
+.video .right{
+	width:45%;
+	height:50%;
+    float:right;
+    text-align:center;
+    border:1px solid #a5b6c8;
+    background:#eef3f7
+}
+.video .right .text{
+    width:100%;
+	height:10%;
+    margin-top: 5%;
+}
+.video .bu{
+	width:50%;
+	height:20%;
+    float:left;
+    text-align:center;
+}
+/*-----button-----*/
+.button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.button span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.button:hover span {
+    padding-right: 25px;
+}
+  
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+/*---liuliangtu---*/
+.page{
+    text-align:center;
+    padding: 50px 20%;
+    padding-bottom: 100px;
+}
+#titleofpage1,#titleofpage2{
+    font-family: "宋体";
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 15px;
+    color: #31639c;
+    float:left;
+    width: 100%;
+    text-align:center;
+} 
+.page .flow_left{
+    width:50%;
+    float:left;
+    text-align:center;
+    margin-bottom: 20px;
+    border:1px solid #bbe1f1;
+    background:#eefaff
+}
+.page .flow_right{
+    width:48%;
+    float:right;
+    text-align:center;
+    margin-bottom: 20px;
+    border:1px solid #bbe1f1;
+    background:#eefaff
+}
+#titleofpage{
+    float:left;
+    width: 100%;
+    text-align:center;
+}
+/*-----footer-----*/
+.footer{
+    background: #0a488f;
+	width:100%;
+	height:100px;
+	float:left;
+}
+.footer a{
+	margin:30px auto;
+    text-align: center;
+	display: block;
+    color: white;
+	font-size: 20px;
+    text-align: center;
+}

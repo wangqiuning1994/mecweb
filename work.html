@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="lang=zh-cmn-Hans">
+<head>
+	<title>效果验证</title>
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+	<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/main_ppt.css">
+	<script src="js/jquery.js"></script>
+</head>
+<body>
+    <!--  logo  -->
+    <div class="logo">
+        <ul class="logoBox">
+            <li class="logo01"><img src="img/logo1.png"/></li>
+            <li class="logo02"><img src="img/logo2.png"/></li>
+        </ul>
+    </div>
+	
+	<!--  导航栏  -->
+	<div class="nav">
+		<ul>
+			<li style="float:left;width:199px"><a class="title" href="index.html">军事移动边缘网络</a></li>
+			<li><a href="work.html">效果验证</a></li>
+			<li><a href="control.html#tab">总体控制</a></li>
+			<li><a href="control.html">拓扑展示</a></li>
+			<li><a href="introduce.html">平台介绍</a></li>
+		</ul>
+	</div>
+
+	<!--  正文主题  -->
+	<div class="main">
+	
+		<!--  侧边栏部分  -->
+		<div class="left">
+			<div class="up">
+				<a>效果验证列表</a>
+			</div>
+			<div class="down">
+				<ul id="side">
+					<li class="on">分布式协作展示</li>
+					<li class="off">移动性管理展示</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!--  介绍部分  -->
+		<div class="right">
+			<!--第1节-->
+			<div id="part0" class="on">
+				<div class="video">
+					<h2>分布式协作展示</h2>
+					<hr/>
+					
+					<div class="text">
+						<h3>流程展示</h3>
+					</div>
+					<div class="video1">	
+						<video width=100% height=100% id="myvideo1" muted="muted" onended="conplay1()" controls >
+							<source src="video/show1.mp4"  type="video/mp4">
+						</video>	   
+					</div>
+					<div class="img">
+						<img src="img/exm1.png" alt="示例图片1" height="30px" width="50%"/>
+					</div>
+					<div class="text">
+						<h3>仿真结果</h3>
+					</div>
+					<div class="img">
+						<img src="img/coop.png" alt="示例图片1" height="300px" width="90%"/>
+					</div>
+				</div>	
+			</div>
+			<!--第2节-->
+			<div id="part1" class="off">
+				<div class="video">
+					<h2>移动性管理展示</h2>
+					<hr/>
+					
+					<div class="text">
+						<h3>流程展示</h3>
+					</div>
+					<div class="video2">	
+						<video width=100% height=100% id="myvideo2" muted="muted" onended="conplay1()" controls>
+							<source src="video/show2.mp4"  type="video/mp4">
+						</video>	   
+					</div>
+					<div class="img">
+						<img src="img/exm2.png" alt="示例图片2" height="30px" width="50%"/>
+					</div>
+					<div class="text">
+						<h3>仿真结果</h3>
+					</div>
+					<div class="img">
+						<img src="img/move.png" alt="示例图片1" height="300px" width="90%"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<!--  底栏部分  -->
+	<div class="footer">
+		<p>
+			<a href="http://www.fnlab.net/" target="_blank">北邮FNL实验室</a>
+		</p>
+	</div>
+
+</body>
+<script>
+    var myUl = document.getElementById("side");
+    var myLi = myUl.getElementsByTagName("li");
+	for (var i = 0; i < myLi.length; i++) {
+        myLi[i].index = i;
+        myLi[i].onclick = function() {
+            for (var j = 0; j < myLi.length; j++) {
+                myLi[j].className = "off";
+				var idofpart = "part"+(j);
+				document.getElementById(idofpart).className = "off";
+            }
+            this.className = "on";
+			var index = $(this).index();
+			var id = "part"+(index);
+			document.getElementById(id).className = "on";
+        }
+    }
+</script>
+</html>

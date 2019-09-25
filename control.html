@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="lang=zh-cmn-Hans">
+<head>
+	<title>拓扑与控制</title>
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/mainofcontrol.css">
+	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/tab.js"></script>
+</head>
+<body>
+	<!--  logo  -->
+	<div class="logo">
+		<ul class="logoBox">
+			<li class="logo01"><img src="img/logo1.png"/></li>
+			<li class="logo02"><img src="img/logo2.png"/></li>
+		</ul>
+	</div>
+	
+	<!--  导航栏  -->
+	<div class="nav">
+		<ul>
+			<li style="float:left;width:199px"><a class="title" href="index.html">军事移动边缘网络</a></li>
+			<li><a href="work.html">效果验证</a></li>
+			<li><a href="control.html#tab">总体控制</a></li>
+			<li><a href="control.html">拓扑展示</a></li>
+			<li><a href="introduce.html">平台介绍</a></li>
+		</ul>
+	</div>
+	
+	<!--  tupo  -->
+	<div id="tupo">
+		<!--地图-->
+		<canvas id="canvas" style="background-image: url(pic/back.jpg);"></canvas>
+		<!--远程控制云-->
+		<img id="cloud" src= "pic/cloud.png" style="left: 820px;top: 650px" ondragstart="return false"/>
+		<!--连接线-->
+		<img id="line1" src= "pic/line1.png" style="visibility: hidden;left: 350px;top: 350px" ondragstart="return false"/>
+		<img id="line2" src= "pic/line2.png" style="visibility: hidden;left: 420px;top: 540px" ondragstart="return false"/>
+		<img id="line3" src= "pic/line3.png" style="visibility: hidden;left: 650px;top: 380px" ondragstart="return false"/>
+		<!--MEC节点-->
+		<img id="mec1" class="mec" src= "pic/mec.png" style="left: 300px;top: 320px" ondragstart="return false"/>
+		<img id="mec2" class="mec" src= "pic/mec.png" style="left: 400px;top: 520px" ondragstart="return false"/>
+		<img id="mec3" class="mec" src= "pic/mec.png" style="left: 600px;top: 340px" ondragstart="return false"/>
+		<!--进度条-->
+		<div id="mec1_bar">
+			<img id="mec1_bar1" class="mec1_bar" src= "pic/bar1.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+			<img id="mec1_bar2" class="mec1_bar" src= "pic/bar2.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+			<img id="mec1_bar3" class="mec1_bar" src= "pic/bar3.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+			<img id="mec1_bar4" class="mec1_bar" src= "pic/bar4.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+			<img id="mec1_bar5" class="mec1_bar" src= "pic/bar5.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+			<img id="mec1_bar6" class="mec1_bar" src= "pic/bar6.png" style="left: 310px;top: 380px" ondragstart="return false"/>
+		</div>
+		<div id="mec2_bar">
+			<img id="mec2_bar1" class="mec2_bar" src= "pic/bar1.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+			<img id="mec2_bar2" class="mec2_bar" src= "pic/bar2.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+			<img id="mec2_bar3" class="mec2_bar" src= "pic/bar3.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+			<img id="mec2_bar4" class="mec2_bar" src= "pic/bar4.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+			<img id="mec2_bar5" class="mec2_bar" src= "pic/bar5.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+			<img id="mec2_bar6" class="mec2_bar" src= "pic/bar6.png" style="left: 410px;top: 580px" ondragstart="return false"/>
+		</div>
+		<div id="mec3_bar">
+			<img id="mec3_bar1" class="mec3_bar" src= "pic/bar1.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+			<img id="mec3_bar2" class="mec3_bar" src= "pic/bar2.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+			<img id="mec3_bar3" class="mec3_bar" src= "pic/bar3.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+			<img id="mec3_bar4" class="mec3_bar" src= "pic/bar4.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+			<img id="mec3_bar5" class="mec3_bar" src= "pic/bar5.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+			<img id="mec3_bar6" class="mec3_bar" src= "pic/bar6.png" style="left: 610px;top: 400px" ondragstart="return false"/>
+		</div>
+		<!--闪烁的点-->
+		<div id="r1" class="circle" style="left: 344px;top: 324px"></div>
+		<div id="o1" class="circle" style="left: 344px;top: 324px"></div>
+		<div id="y1" class="circle" style="left: 344px;top: 324px"></div>
+		<div id="r2" class="circle" style="left: 446px;top: 524px"></div>
+		<div id="o2" class="circle" style="left: 446px;top: 524px"></div>
+		<div id="y2" class="circle" style="left: 446px;top: 524px"></div>
+		<div id="r3" class="circle" style="left: 643px;top: 344px"></div>
+		<div id="o3" class="circle" style="left: 643px;top: 344px"></div>
+		<div id="y3" class="circle" style="left: 643px;top: 344px"></div>
+		<!--用户输入-->
+		<h1>拓扑展示图</h1>
+		<div style="text-align: center">
+		<span style="font-size: 20px,font-family:;font-weight:500;color:#20324c">☞ 请输入MEC节点数：(1~3)</span>
+		<input id="t1" type="text" name="mec_input" style="font-size: 20px,font-family:'宋体';font-weight:500;color:#20324c">
+		<button class="sub_bottom" id="b1" type="button" name="mec_submit" onclick="getText1()"><span>提交</span></button>
+		</div>
+		<div style="text-align: center">
+		<span style="font-size: 20px,font-family:;font-weight:500;color:#20324c">☞ 请输入移动设备数：(1~5)</span>
+		<input id="t2" type="text" name="mobile_input" style="font-size: 20px,font-family:'宋体';font-weight:500;color:#20324c">
+		<button class="sub_bottom" id="b2" type="button" name="mobile_submit" onclick="getText2()"><span>提交</span></button>
+		</div>
+		<!--自动移动按键-->
+		<button id="move1" type="button" title="移动①" style="top: 220px" class="sim-button button1" onclick="move_Mobile1()"><span>▶</span></button>
+		<button id="move2" type="button" title="移动②" style="top: 270px" class="sim-button button1" onclick="move_Mobile2()"><span>▶</span></button>
+		<button id="move3" type="button" title="移动③" style="top: 320px" class="sim-button button1" onclick="move_Mobile3()"><span>▶</span></button>
+		<button id="move4" type="button" title="移动④" style="top: 370px" class="sim-button button1" onclick="move_Mobile4()"><span>▶</span></button>
+		<button id="move5" type="button" title="移动⑤" style="top: 420px" class="sim-button button1" onclick="move_Mobile5()"><span>▶</span></button>
+		<!--移动终端-->
+		<div id='mobile1' style='left: 190px; top: 580px; ' class="mobile">
+			<img src="pic/mobile.png" id="images1" class="images">
+		</div>
+		<div id='mobile2' style='left: 410px; top: 420px; ' class="mobile">
+			<img src="pic/mobile.png" id="images2" class="images">
+		</div>
+		<div id='mobile3' style='left: 180px; top: 340px; ' class="mobile">
+			<img src="pic/mobile.png" id="images3" class="images">
+		</div>
+		<div id='mobile4' style='left: 700px; top: 780px; ' class="mobile">
+			<img src="pic/mobile.png" id="images4" class="images">
+		</div>
+		<div id='mobile5' style='left: 930px; top: 430px; ' class="mobile">
+			<img src="pic/mobile.png" id="images5" class="images">
+		</div>
+	</div>
+	
+	<!--  MEC控制区  -->
+	<div id="tab">
+        <ul id="header">
+        <li class="on">MEC1</li>
+        <li class="off">MEC2</li>
+        <li class="off">MEC3</li>
+        </ul>
+		<div id="page" class="show">
+			<div class="bingtu">
+				<div class="ram">
+					<canvas id="canvas_ram" width="350" height="150" style="border:0px solid #0026ff;" >
+						浏览器不支持canvas
+					</canvas>
+				</div>
+				<div class="rom">
+					<canvas id="canvas_rom" width="350" height="150" style="border:0px solid #0026ff;" >
+						浏览器不支持canvas
+					</canvas>
+				</div>
+			</div>
+			<div class="controltext">
+				<div id="titleofmec" class="status">
+					<a>控制面板</a>
+					<div id="switch1" class="close1">
+						<div id="switch2" class="close2"></div>
+					</div>
+				</div>
+				<div id="yun" class="status">
+					<div class="left">
+						<a>运行状况</a>
+					</div>
+					<div class="right">
+						<ul id="yunul">
+						</ul>
+					</div>
+				</div>
+				<hr width="600px" color=gray size=2>
+				<div id="coop" class="status">
+					<div class="left">
+						<a>协作状况</a>
+					</div>
+					<div class="right">
+						<ul>
+						</ul>
+					</div>
+				</div>
+				<hr width="600px" color=gray size=2>
+				<div id="app" class="status">
+					<div class="left">
+						<a>应用详情</a>
+					</div>
+					<div class="right">
+						<ul>
+						</ul>
+					</div>
+				</div>
+				<hr width="600px" color=gray size=2>
+				<div id="ue" class="status">
+					<div class="left">
+						<a>用户详情</a>
+					</div>
+					<div class="right">
+						<ul>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  无人机控制区  -->
+	<div id="tab2">
+        <ul id="header2">
+        <li class="on">无人机1</li>
+        <li class="off">无人机2</li>
+        <li class="off">无人机3</li>
+		<li class="off">无人机4</li>
+		<li class="off">无人机5</li>
+        </ul>
+		<!--无人机1-->
+		<div id="page1" class="on">
+			<div class="left">
+				<div id="titleofpage11" class="lefttitle">信道质量：</div>
+				<canvas id="demoofpage11" class="leftdemo"></canvas>
+			</div>
+			<div class="right">
+				<div id="titleofpage12" class="righttitle">上传视频码率(P)：</div>
+				<video width="300" height="250"id="myvideo1" muted="muted" autoplay="autoplay" onended="fun(1)"></video>
+			</div>
+		</div>
+		<!--无人机2-->
+		<div id="page2" class="off">
+			<div class="left">
+				<div id="titleofpage21" class="lefttitle">信道质量：</div>
+				<canvas id="demoofpage21" class="leftdemo"></canvas>
+			</div>
+			<div class="right">
+				<div id="titleofpage22" class="righttitle">上传视频码率(P)：</div>
+				<video width="300" height="250" id="myvideo2" muted="muted" autoplay onended="fun(2)"></video>
+			</div>
+		</div>
+		<!--无人机3-->
+		<div id="page3" class="off">
+			<div class="left">
+				<div id="titleofpage31" class="lefttitle">信道质量：</div>
+				<canvas id="demoofpage31" class="leftdemo"></canvas>
+			</div>
+			<div class="right">
+				<div id="titleofpage32" class="righttitle">上传视频码率(P)：</div>
+				<video width="300" height="250" id="myvideo3" muted="muted" autoplay onended="fun(3)"></video>
+			</div>
+		</div>
+		<!--无人机4-->
+		<div id="page4" class="off">
+			<div class="left">
+				<div id="titleofpage41" class="lefttitle">信道质量：</div>
+				<canvas id="demoofpage41" class="leftdemo"></canvas>
+			</div>
+			<div class="right">
+				<div id="titleofpage42" class="righttitle">上传视频码率(P)：</div>
+				<video width="300" height="250" id="myvideo4" muted="muted" autoplay onended="fun(4)"></video>
+			</div>
+		</div>
+		<!--无人机5-->
+		<div id="page5" class="off">
+			<div class="left">
+				<div id="titleofpage51" class="lefttitle">信道质量：</div>
+				<canvas id="demoofpage51" class="leftdemo"></canvas>
+			</div>
+			<div class="right">
+				<div id="titleofpage52" class="righttitle">上传视频码率(P)：</div>
+				<video width="300" height="250" id="myvideo5" muted="muted" autoplay onended="fun(5)"></video>
+			</div>
+		</div>
+	</div>
+	<!--  底栏部分  -->
+	<div class="footer">
+		<a href="http://www.fnlab.net/" target="_blank">北邮FNL实验室</a>
+	</div>
+</body>
+<script>
+	// 刷新
+    document.getElementById("t1").value = null ;
+    document.getElementById("t2").value = null ;
+
+    var r1 = document.getElementById("r1");
+    var o1 = document.getElementById("o1");
+    var y1 = document.getElementById("y1");
+    var r2 = document.getElementById("r2");
+    var o2 = document.getElementById("o2");
+    var y2 = document.getElementById("y2");
+    var r3 = document.getElementById("r3");
+    var o3 = document.getElementById("o3");
+    var y3 = document.getElementById("y3");
+
+    var mec1_bar1 = document.getElementById("mec1_bar1");
+    var mec1_bar2 = document.getElementById("mec1_bar2");
+    var mec1_bar3 = document.getElementById("mec1_bar3");
+    var mec1_bar4 = document.getElementById("mec1_bar4");
+    var mec1_bar5 = document.getElementById("mec1_bar5");
+    var mec1_bar6 = document.getElementById("mec1_bar6");
+    var mec2_bar1 = document.getElementById("mec2_bar1");
+    var mec2_bar2 = document.getElementById("mec2_bar2");
+    var mec2_bar3 = document.getElementById("mec2_bar3");
+    var mec2_bar4 = document.getElementById("mec2_bar4");
+    var mec2_bar5 = document.getElementById("mec2_bar5");
+    var mec2_bar6 = document.getElementById("mec2_bar6");
+    var mec3_bar1 = document.getElementById("mec3_bar1");
+    var mec3_bar2 = document.getElementById("mec3_bar2");
+    var mec3_bar3 = document.getElementById("mec3_bar3");
+    var mec3_bar4 = document.getElementById("mec3_bar4");
+    var mec3_bar5 = document.getElementById("mec3_bar5");
+    var mec3_bar6 = document.getElementById("mec3_bar6");
+
+
+    var mec1_m = [0,0,0,0,0];
+    var mec2_m = [0,0,0,0,0];
+    var mec3_m = [0,0,0,0,0];
+    // 判断按键是否按下
+    var bottom = [0,0];
+    // 获取MEC节点数
+    var mec1 = document.getElementById("mec1");
+    var mec2 = document.getElementById("mec2");
+    var mec3 = document.getElementById("mec3");
+    var line1 = document.getElementById("line1");
+    var line2 = document.getElementById("line2");
+    var line3 = document.getElementById("line3");
+
+//-------------------------------------------------------//
+//-------------------------------------------------------//
+	var numofmec = 0;
+	var numofmobile = 0;
+	
+	var mobiletomec = [0,0,0,0,0];
+	var mobiledistance = [0,0,0,0,0];
+
+	var myTab = document.getElementById("tab");
+    var myUl = myTab.getElementsByTagName("ul")[0];
+    var myLi = myUl.getElementsByTagName("li");
+	
+	var myTab2 = document.getElementById("tab2");
+    var myUl2 = myTab2.getElementsByTagName("ul")[0];
+    var myLi2 = myUl2.getElementsByTagName("li");
+
+	var statusofmec = getstatusofmec(numofmec);
+	var switchofmec = getstatusofmec(numofmec);
+	
+	updatemyLi(myLi,numofmec);
+	updatemyLi(myLi2,numofmobile);
+//-------------------------------------------------------//	
+//-------------------------------------------------------//
+    function getText1() {
+        clearLine();
+        mec1.style.visibility = "hidden";
+        mec2.style.visibility = "hidden";
+        mec3.style.visibility = "hidden";
+        line1.style.visibility = "hidden";
+        line2.style.visibility = "hidden";
+        line3.style.visibility = "hidden";
+
+        r1.style.visibility = "hidden";
+        o1.style.visibility = "hidden";
+        y1.style.visibility = "hidden";
+        r2.style.visibility = "hidden";
+        o2.style.visibility = "hidden";
+        y2.style.visibility = "hidden";
+        r3.style.visibility = "hidden";
+        o3.style.visibility = "hidden";
+        y3.style.visibility = "hidden";
+        mec1_bar1.style.visibility = "hidden";
+        mec1_bar2.style.visibility = "hidden";
+        mec1_bar3.style.visibility = "hidden";
+        mec1_bar4.style.visibility = "hidden";
+        mec1_bar5.style.visibility = "hidden";
+        mec1_bar6.style.visibility = "hidden";
+        mec2_bar1.style.visibility = "hidden";
+        mec2_bar2.style.visibility = "hidden";
+        mec2_bar3.style.visibility = "hidden";
+        mec2_bar4.style.visibility = "hidden";
+        mec2_bar5.style.visibility = "hidden";
+        mec2_bar6.style.visibility = "hidden";
+        mec3_bar1.style.visibility = "hidden";
+        mec3_bar2.style.visibility = "hidden";
+        mec3_bar3.style.visibility = "hidden";
+        mec3_bar4.style.visibility = "hidden";
+        mec3_bar5.style.visibility = "hidden";
+        mec3_bar6.style.visibility = "hidden";
+        count1 = 0;
+        count2 = 0;
+        count3 = 0;
+        var content1 = document.getElementById("t1").value;
+        if(content1 == 1) {
+            bottom[0] = 1;
+            mec1.style.visibility = "visible";
+            mec1_bar1.style.visibility = "visible";
+            line1.style.visibility = "visible";
+            r1.style.visibility = "visible";
+            o1.style.visibility = "visible";
+            y1.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content1 == 2){
+            bottom[0] = 1;
+            mec1.style.visibility = "visible";
+            mec2.style.visibility = "visible";
+            mec1_bar1.style.visibility = "visible";
+            mec2_bar1.style.visibility = "visible";
+            line1.style.visibility = "visible";
+            line2.style.visibility = "visible";
+            r1.style.visibility = "visible";
+            o1.style.visibility = "visible";
+            y1.style.visibility = "visible";
+            r2.style.visibility = "visible";
+            o2.style.visibility = "visible";
+            y2.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content1 == 3){
+            bottom[0] = 1;
+            mec1.style.visibility = "visible";
+            mec2.style.visibility = "visible";
+            mec3.style.visibility = "visible";
+            mec1_bar1.style.visibility = "visible";
+            mec2_bar1.style.visibility = "visible";
+            mec3_bar1.style.visibility = "visible";
+            line1.style.visibility = "visible";
+            line2.style.visibility = "visible";
+            line3.style.visibility = "visible";
+            r1.style.visibility = "visible";
+            o1.style.visibility = "visible";
+            y1.style.visibility = "visible";
+            r2.style.visibility = "visible";
+            o2.style.visibility = "visible";
+            y2.style.visibility = "visible";
+            r3.style.visibility = "visible";
+            o3.style.visibility = "visible";
+            y3.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else{
+            bottom[0] = 0;
+            distanceAll();
+            alert("输入有误，请重新输入");
+        }
+		//------------------------------//
+		numofmec = content1;
+		updatemyLi(myLi,numofmec);
+		statusofmec = getstatusofmec(numofmec);
+		//------------------------------//
+    }
+    // 获取移动终端数
+    var mobile1 = document.getElementById("mobile1");
+    var mobile2 = document.getElementById("mobile2");
+    var mobile3 = document.getElementById("mobile3");
+    var mobile4 = document.getElementById("mobile4");
+    var mobile5 = document.getElementById("mobile5");
+    function getText2(){
+        clearLine();
+        mobile1.style.visibility = "hidden";
+        mobile2.style.visibility = "hidden";
+        mobile3.style.visibility = "hidden";
+        mobile4.style.visibility = "hidden";
+        mobile5.style.visibility = "hidden";
+        count1 = 0;
+        count2 = 0;
+        count3 = 0;
+        var content2 = document.getElementById("t2").value;
+        if(content2 == 1) {
+            bottom[1] = 1;
+            mobile1.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content2 == 2){
+            bottom[1] = 1;
+            mobile1.style.visibility = "visible";
+            mobile2.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content2 == 3){
+            bottom[1] = 1;
+            mobile1.style.visibility = "visible";
+            mobile2.style.visibility = "visible";
+            mobile3.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content2 == 4){
+            bottom[1] = 1;
+            mobile1.style.visibility = "visible";
+            mobile2.style.visibility = "visible";
+            mobile3.style.visibility = "visible";
+            mobile4.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else if(content2 == 5){
+            bottom[1] = 1;
+            mobile1.style.visibility = "visible";
+            mobile2.style.visibility = "visible";
+            mobile3.style.visibility = "visible";
+            mobile4.style.visibility = "visible";
+            mobile5.style.visibility = "visible";
+            distanceAll();
+            showLine();
+        }
+        else{
+            bottom[1] = 0;
+            distanceAll();
+            alert("输入有误，请重新输入");
+        }
+		//------------------------------//
+		numofmobile = content2;
+		updatemyLi(myLi2,numofmobile);
+		update(0,mobiletomec,statusofmec);
+		//------------------------------//
+    }
+    // 显示连线
+    function showLine(){
+        if(bottom[0]==1&&bottom[1]==1){
+            if(mobile1.style.visibility == "visible") {
+                judge(m1_m1, m2_m1, m3_m1, mobile1,1);
+            }
+            if(mobile2.style.visibility == "visible") {
+                judge(m1_m2, m2_m2, m3_m2, mobile2,2);
+            }
+            if(mobile3.style.visibility == "visible") {
+                judge(m1_m3, m2_m3, m3_m3, mobile3,3);
+            }
+            if(mobile4.style.visibility == "visible") {
+                judge(m1_m4, m2_m4, m3_m4, mobile4,4);
+            }
+            if(mobile5.style.visibility == "visible") {
+                judge(m1_m5, m2_m5, m3_m5, mobile5,5);
+            }
+            cooperates();
+            cooperates();
+        }
+    }
+
+    function cooperates() {
+        if(r1.style.visibility == "visible") {
+            cooperate1();
+        }
+        if(r2.style.visibility == "visible") {
+            cooperate2();
+        }
+        if(r3.style.visibility == "visible") {
+            cooperate3();
+        }
+    }
+    var count1 = 0;
+    var count2 = 0;
+    var count3 = 0;
+    var temp1 = 0;
+    var temp2 = 0;
+    var temp3 = 0;
+    // 分布式协作
+    function cooperate1() {
+        temp1 = 0;
+        for(var i = 0;i<mec1_m.length;i++){
+            count1 += mec1_m[i];
+            temp1 += mec1_m[i];
+        }
+
+        if(count1>=3){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "visible";
+            context.strokeStyle = 'orange';
+            if((r2.style.visibility == "visible")&&(temp2<2)) {
+                drawLine(mec1.offsetLeft, mec1.offsetTop, mec2.offsetLeft, mec2.offsetTop);
+            }
+            if((r3.style.visibility == "visible")&&(temp3<2)) {
+                drawLine(mec1.offsetLeft, mec1.offsetTop, mec3.offsetLeft, mec3.offsetTop);
+            }
+            if(count1==3) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count2 += 0.5;
+                    count3 += 0.5;
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),1);
+                }
+                else if((r3.style.visibility == "visible")&&(temp3<2)){
+                    count3 += Math.min((2-temp3),1);
+                }
+            }
+            else if(count1==4) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count2 += Math.min((2-temp2),1);
+                    count3 += Math.min((2-temp3),1);
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),2);
+                }
+                else if((r3.style.visibility == "visible")&&(temp3<2)){
+                    count3 += Math.min((2-temp3),2);
+                }
+            }
+            else if(count1==5) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count2 += Math.min((2-temp2),1.5);
+                    count3 += Math.min((2-temp3),1.5);
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),2);
+                }
+                else if((r3.style.visibility == "visible")&&(temp3<2)){
+                    count3 += Math.min((2-temp3),2);
+                }
+            }
+        }
+        else if(count1==2.5){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "visible";
+        }
+        else if(count1==2){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "visible";
+            mec1_bar6.style.visibility = "hidden";
+        }
+        else if(count1==1.5){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "visible";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "hidden";
+        }
+        else if(count1==1){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "visible";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "hidden";
+        }
+        else if(count1==0.5){
+            mec1_bar1.style.visibility = "hidden";
+            mec1_bar2.style.visibility = "visible";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "hidden";
+        }
+        else{
+            mec1_bar1.style.visibility = "visible";
+            mec1_bar2.style.visibility = "hidden";
+            mec1_bar3.style.visibility = "hidden";
+            mec1_bar4.style.visibility = "hidden";
+            mec1_bar5.style.visibility = "hidden";
+            mec1_bar6.style.visibility = "hidden";
+        }
+        count1 = 0;
+    }
+    function cooperate2() {
+        temp2 = 0;
+        for(var j = 0;j<mec2_m.length;j++){
+            count2 += mec2_m[j];
+            temp2 += mec2_m[j];
+        }
+        if(count2>=3) {
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "visible";
+            context.strokeStyle = 'orange';
+            if ((r1.style.visibility == "visible")&&(temp1<2)) {
+                drawLine(mec2.offsetLeft, mec2.offsetTop, mec1.offsetLeft, mec1.offsetTop);
+            }
+            if ((r3.style.visibility == "visible")&&(temp3<2)) {
+                drawLine(mec2.offsetLeft, mec2.offsetTop, mec3.offsetLeft, mec3.offsetTop);
+            }
+            if(count2==3) {
+                if (((r1.style.visibility == "visible")&&(temp1<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count1 += Math.min((2-temp1),0.5);
+                    count3 += Math.min((2-temp3),0.5);
+                }
+                else if(r1.style.visibility == "visible"&&temp1<2){
+                    count1 += Math.min((2-temp1),1);
+                }
+                else if(r3.style.visibility == "visible"&&temp3<2){
+                    count3 += Math.min((2-temp3),1);
+                }
+            }
+            else if(count2==4) {
+                if (((r1.style.visibility == "visible")&&(temp1<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count1 += Math.min((2-temp1),1);
+                    count3 += Math.min((2-temp3),1);
+                }
+                else if((r1.style.visibility == "visible")&&(temp1<2)){
+                    count1 += Math.min((2-temp1),2);
+                }
+                else if((r3.style.visibility == "visible")&&(temp3<2)){
+                    count3 += Math.min((2-temp3),2);
+                }
+            }
+            else if(count2==5) {
+                if (((r1.style.visibility == "visible")&&(temp1<2)) && ((r3.style.visibility == "visible")&&(temp3<2))) {
+                    count1 += Math.min((2-temp1),1.5);
+                    count3 += Math.min((2-temp3),1.5);
+                }
+                else if((r1.style.visibility == "visible")&&(temp1<2)){
+                    count1 += Math.min((2-temp1),2);
+                }
+                else if((r3.style.visibility == "visible")&&(temp3<2)){
+                    count3 += Math.min((2-temp3),2);
+                }
+            }
+        }
+        else if(count2==2.5){
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "visible";
+        }
+        else if(count2==2){
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "visible";
+            mec2_bar6.style.visibility = "hidden";
+        }
+        else if(count2==1.5){
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "visible";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "hidden";
+        }
+        else if(count2==1){
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "visible";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "hidden";
+        }
+        else if(count2==0.5){
+            mec2_bar1.style.visibility = "hidden";
+            mec2_bar2.style.visibility = "visible";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "hidden";
+        }
+        else{
+            mec2_bar1.style.visibility = "visible";
+            mec2_bar2.style.visibility = "hidden";
+            mec2_bar3.style.visibility = "hidden";
+            mec2_bar4.style.visibility = "hidden";
+            mec2_bar5.style.visibility = "hidden";
+            mec2_bar6.style.visibility = "hidden";
+        }
+        count2 = 0;
+    }
+    function cooperate3() {
+        temp3 = 0;
+        for(var k = 0;k<mec3_m.length;k++){
+            count3 += mec3_m[k];
+            temp3 += mec3_m[k];
+        }
+        if(count3>=3){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "visible";
+            context.strokeStyle = 'orange';
+            if((r1.style.visibility == "visible")&&(temp1<2)) {
+                drawLine(mec3.offsetLeft, mec3.offsetTop, mec1.offsetLeft, mec1.offsetTop);
+            }
+            if((r2.style.visibility == "visible")&&(temp2<2)) {
+                drawLine(mec3.offsetLeft, mec3.offsetTop, mec2.offsetLeft, mec2.offsetTop);
+            }
+            if(count3==3) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r1.style.visibility == "visible")&&(temp1<2))) {
+                    count2 += Math.min((2-temp2),0.5);
+                    count1 += Math.min((2-temp1),0.5);
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),1);
+                }
+                else if((r1.style.visibility == "visible")&&(temp1<2)){
+                    count1 += Math.min((2-temp1),1);
+                }
+            }
+            else if(count3==4) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r1.style.visibility == "visible")&&(temp1<2))) {
+                    count2 += Math.min((2-temp2),1);
+                    count1 += Math.min((2-temp1),1);
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),2);
+                }
+                else if((r1.style.visibility == "visible")&&(temp1<2)){
+                    count1 += Math.min((2-temp1),2);
+                }
+            }
+            else if(count3==5) {
+                if (((r2.style.visibility == "visible")&&(temp2<2)) && ((r1.style.visibility == "visible")&&(temp1<2))) {
+                    count2 += Math.min((2-temp2),1.5);
+                    count1 += Math.min((2-temp1),1.5);
+                }
+                else if((r2.style.visibility == "visible")&&(temp2<2)){
+                    count2 += Math.min((2-temp2),2);
+                }
+                else if((r1.style.visibility == "visible")&&(temp1<2)){
+                    count1 += Math.min((2-temp1),2);
+                }
+            }
+        }
+        else if(count3==2.5){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "visible";
+        }
+        else if(count3==2){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "visible";
+            mec3_bar6.style.visibility = "hidden";
+        }
+        else if(count3==1.5){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "visible";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "hidden";
+        }
+        else if(count3==1){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "visible";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "hidden";
+        }
+        else if(count3==0.5){
+            mec3_bar1.style.visibility = "hidden";
+            mec3_bar2.style.visibility = "visible";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "hidden";
+        }
+        else{
+            mec3_bar1.style.visibility = "visible";
+            mec3_bar2.style.visibility = "hidden";
+            mec3_bar3.style.visibility = "hidden";
+            mec3_bar4.style.visibility = "hidden";
+            mec3_bar5.style.visibility = "hidden";
+            mec3_bar6.style.visibility = "hidden";
+        }
+        count3 = 0;
+    }
+
+    // 鼠标拖动实现
+    drag = 0;
+    move = 0;
+    var nn6 = document.getElementById && !document.all;
+    var isdrag = false;
+    var y,x;
+    var oDragObj;
+    function moveMouse(e) {
+        if (isdrag) {
+            oDragObj.style.top = (nn6 ? nTY + e.clientY - y : nTY + event.clientY - y) + "px";
+            oDragObj.style.left = (nn6 ? nTX + e.clientX - x : nTX + event.clientX - x) + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            return false;
+        }
+    }
+    function initDrag(e) {
+        var oDragHandle = nn6 ? e.target : event.srcElement;
+        var topElement = "HTML";
+        while (oDragHandle.tagName != topElement && oDragHandle.className != "mobile") {
+            oDragHandle = nn6 ? oDragHandle.parentNode : oDragHandle.parentElement;
+        }
+        if (oDragHandle.className == "mobile") {
+            isdrag = true;
+            oDragObj = oDragHandle;
+            nTY = parseInt(oDragObj.style.top + 0);
+            y = nn6 ? e.clientY : event.clientY;
+            nTX = parseInt(oDragObj.style.left + 0);
+            x = nn6 ? e.clientX : event.clientX;
+            document.onmousemove = moveMouse;
+            return false;
+        }
+    }
+    document.onmousedown = initDrag;
+    // document.onmouseup = new Function("isdrag=false");
+    document.onmouseup = function () {
+        isdrag=false;
+    }
+    // 计算距离
+    var m1_m1,m1_m2,m1_m3,m1_m4,m1_m5;
+    var m2_m1,m2_m2,m2_m3,m2_m4,m2_m5;
+    var m3_m1,m3_m2,m3_m3,m3_m4,m3_m5;
+    var result;
+    function distanceCal(mecNode, mobileNode) {
+        var x1 = mecNode.offsetLeft;
+        var y1 = mecNode.offsetTop;
+        var x2 = mobileNode.offsetLeft;
+        var y2 = mobileNode.offsetTop;
+        var calX = x2 - x1;
+        var calY = y2 - y1;
+        result = Math.pow((calX * calX + calY * calY), 0.5);
+        return result;
+    }
+    // 计算全部距离
+    function distanceAll() {
+        m1_m1 = distanceCal(mec1, mobile1);
+        m1_m2 = distanceCal(mec1, mobile2);
+        m1_m3 = distanceCal(mec1, mobile3);
+        m1_m4 = distanceCal(mec1, mobile4);
+        m1_m5 = distanceCal(mec1, mobile5);
+        m2_m1 = distanceCal(mec2, mobile1);
+        m2_m2 = distanceCal(mec2, mobile2);
+        m2_m3 = distanceCal(mec2, mobile3);
+        m2_m4 = distanceCal(mec2, mobile4);
+        m2_m5 = distanceCal(mec2, mobile5);
+        m3_m1 = distanceCal(mec3, mobile1);
+        m3_m2 = distanceCal(mec3, mobile2);
+        m3_m3 = distanceCal(mec3, mobile3);
+        m3_m4 = distanceCal(mec3, mobile4);
+        m3_m5 = distanceCal(mec3, mobile5);
+    }
+    // 生成画板
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 1020;
+    canvas.height = 620;
+    // 生成直线
+    function drawLine(start_x,start_y,end_x,end_y){
+        context.lineWidth = 2;
+        context.setLineDash([5]);
+        context.beginPath();
+        context.moveTo(start_x-45, start_y-210);
+        context.lineTo(end_x-45, end_y-210);
+        context.closePath();
+        context.stroke();
+    }
+    // 清空画板
+    function clearLine() {
+        canvas = document.getElementById('canvas');
+        canvas.width = 1020;
+        canvas.height = 620;
+        mec1_m = [0,0,0,0,0];
+        mec2_m = [0,0,0,0,0];
+        mec3_m = [0,0,0,0,0];
+    }
+    // 判断距离
+    function judge(m1_mx,m2_mx,m3_mx,mobile_x,x) {
+        if (r1.style.visibility == "visible" && r2.style.visibility == "visible" && r3.style.visibility == "visible") {
+            if (m1_mx <= m2_mx && m1_mx <= m3_mx) {
+                mec1_m[x-1] = 1;
+				mobiletomec[x-1] = 1;
+				mobiledistance[x-1] = Math.round(m1_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec1.offsetLeft, mec1.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m1_mx-m2_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec1.offsetLeft,mec1.offsetTop,
+                        mec2.offsetLeft,mec2.offsetTop)
+                }
+                if(Math.abs(m1_mx-m3_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec1.offsetLeft,mec1.offsetTop,
+                        mec3.offsetLeft,mec3.offsetTop)
+                }
+            }
+            else if (m2_mx <= m1_mx && m2_mx <= m3_mx) {
+                mec2_m[x-1] = 1;
+				mobiletomec[x-1] = 2;
+				mobiledistance[x-1] = Math.round(m2_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec2.offsetLeft, mec2.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m2_mx-m1_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec2.offsetLeft,mec2.offsetTop,
+                        mec1.offsetLeft,mec1.offsetTop)
+                }
+                if(Math.abs(m2_mx-m3_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec2.offsetLeft,mec2.offsetTop,
+                        mec3.offsetLeft,mec3.offsetTop)
+                }
+            }
+            else {
+                mec3_m[x-1] = 1;
+				mobiletomec[x-1] = 3;
+				mobiledistance[x-1] = Math.round(m3_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec3.offsetLeft, mec3.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m3_mx-m1_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec3.offsetLeft,mec3.offsetTop,
+                        mec1.offsetLeft,mec1.offsetTop)
+                }
+                if(Math.abs(m3_mx-m2_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec3.offsetLeft,mec3.offsetTop,
+                        mec2.offsetLeft,mec2.offsetTop)
+                }
+            }
+        }
+        else if(r1.style.visibility == "visible" && r2.style.visibility == "visible"){
+            if (m1_mx <= m2_mx) {
+                mec1_m[x-1] = 1;
+				mobiletomec[x-1] = 1;
+				mobiledistance[x-1] = Math.round(m1_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec1.offsetLeft, mec1.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m1_mx-m2_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec1.offsetLeft,mec1.offsetTop,
+                        mec2.offsetLeft,mec2.offsetTop)
+                }
+            }
+            else {
+                mec2_m[x-1] = 1;
+				mobiletomec[x-1] = 2;
+				mobiledistance[x-1] = Math.round(m2_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec2.offsetLeft, mec2.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m2_mx-m1_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec2.offsetLeft,mec2.offsetTop,
+                        mec1.offsetLeft,mec1.offsetTop)
+                }
+            }
+        }
+        else if(r2.style.visibility == "visible" && r3.style.visibility == "visible"){
+            if (m2_mx <= m3_mx) {
+				mobiletomec[x-1] = 2;
+				mobiledistance[x-1] = Math.round(m2_mx);
+                mec2_m[x-1] = 1;
+                context.strokeStyle = 'red';
+                drawLine(mec2.offsetLeft, mec2.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m2_mx-m3_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec2.offsetLeft,mec2.offsetTop,
+                        mec3.offsetLeft,mec3.offsetTop)
+                }
+            }
+            else {
+				mobiletomec[x-1] = 3;
+				mobiledistance[x-1] = Math.round(m3_mx);
+                mec3_m[x-1] = 1;
+                context.strokeStyle = 'red';
+                drawLine(mec3.offsetLeft, mec3.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m3_mx-m2_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec3.offsetLeft,mec3.offsetTop,
+                        mec2.offsetLeft,mec2.offsetTop)
+                }
+            }
+        }
+        else if(r1.style.visibility == "visible" && r3.style.visibility == "visible"){
+            if (m1_mx <= m3_mx) {
+				mobiletomec[x-1] = 1;
+				mobiledistance[x-1] = Math.round(m1_mx);
+                mec1_m[x-1] = 1;
+                context.strokeStyle = 'red';
+                drawLine(mec1.offsetLeft, mec1.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m1_mx-m3_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec1.offsetLeft,mec1.offsetTop,
+                        mec3.offsetLeft,mec3.offsetTop)
+                }
+            }
+            else {
+                mec3_m[x-1] = 1;
+				mobiletomec[x-1] = 3;
+				mobiledistance[x-1] = Math.round(m3_mx);
+                context.strokeStyle = 'red';
+                drawLine(mec3.offsetLeft, mec3.offsetTop,
+                    mobile_x.offsetLeft, mobile_x.offsetTop)
+                if(Math.abs(m3_mx-m1_mx)<20){
+                    context.strokeStyle = 'blue';
+                    drawLine(mec3.offsetLeft,mec3.offsetTop,
+                        mec1.offsetLeft,mec1.offsetTop)
+                }
+            }
+        }
+        else if(r1.style.visibility == "visible"){
+            mec1_m[x-1] = 1;
+			mobiletomec[x-1] = 1;
+			mobiledistance[x-1] = Math.round(m1_mx);
+            context.strokeStyle = 'red';
+            drawLine(mec1.offsetLeft, mec1.offsetTop,
+                mobile_x.offsetLeft, mobile_x.offsetTop)
+        }
+        else if(r2.style.visibility == "visible"){
+			mobiletomec[x-1] = 2;
+			mobiledistance[x-1] = Math.round(m2_mx);
+            mec2_m[x-1] = 1;
+            context.strokeStyle = 'red';
+            drawLine(mec2.offsetLeft, mec2.offsetTop,
+                mobile_x.offsetLeft, mobile_x.offsetTop)
+        }
+        else if(r3.style.visibility == "visible"){
+			mobiletomec[x-1] = 3;
+			mobiledistance[x-1] = Math.round(m3_mx);
+            mec3_m[x-1] = 1;
+            context.strokeStyle = 'red';
+            drawLine(mec3.offsetLeft, mec3.offsetTop,
+                mobile_x.offsetLeft, mobile_x.offsetTop)
+        }
+    }
+    // 设备①沿路径移动
+    var xx1=190,yy1=580;
+    var x1Speed=0.5,y1Speed=0.5;
+    function floatImg1(){
+        if(xx1<495&&yy1>275) {
+            xx1 += x1Speed;
+            yy1 -= y1Speed;
+            mobile1.style.top = yy1 + "px";
+            mobile1.style.left = xx1 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg1()", 0);
+        }
+    }
+    function move_Mobile1() {
+        xx1=190,yy1=580;
+        x1Speed=0.5,y1Speed=0.5;
+        if(bottom[0]==1&&bottom[1]==1){
+                floatImg1();
+        }
+    }
+    // 设备②沿路径移动
+    var xx2=410,yy2=420;
+    var x2Speed=0.5,y2Speed=0.25;
+    function floatImg2(){
+        if(xx2<610&&yy2<520) {
+            xx2 += x2Speed;
+            yy2 += y2Speed;
+            mobile2.style.top = yy2 + "px";
+            mobile2.style.left = xx2 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg2()", 0);
+        }
+        else if(xx2<830&&yy2>300){
+            x2Speed=0.5,y2Speed=0.5;
+            xx2 += x2Speed;
+            yy2 -= y2Speed;
+            mobile2.style.top = yy2 + "px";
+            mobile2.style.left = xx2 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg2()", 0);
+        }
+    }
+    function move_Mobile2() {
+        xx2=410,yy2=420;
+        x2Speed=0.5,y2Speed=0.25;
+        if(bottom[0]==1&&bottom[1]==1){
+            floatImg2();
+        }
+    }
+    // 设备③沿路径移动
+    var xx3=180,yy3=340;
+    var x3Speed=0.25,y3Speed=0.5;
+    function floatImg3(){
+        if(xx3<295&&yy3<570) {
+            xx3 += x3Speed;
+            yy3 += y3Speed;
+            mobile3.style.top = yy3 + "px";
+            mobile3.style.left = xx3 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg3()", 0);
+        }
+    }
+    function move_Mobile3() {
+        xx3=180,yy3=340;
+        x3Speed=0.25,y3Speed=0.5;
+        if(bottom[0]==1&&bottom[1]==1){
+            floatImg3();
+        }
+    }
+    // 设备④沿路径移动
+    var xx4=700,yy4=780;
+    var x4Speed=0.25,y4Speed=0.5;
+    function floatImg4(){
+        if(xx4>370&&yy4>260) {
+            xx4 -= x4Speed;
+            yy4 -= y4Speed;
+            mobile4.style.top = yy4 + "px";
+            mobile4.style.left = xx4 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg4()", 0);
+        }
+    }
+    function move_Mobile4() {
+        xx4=700,yy4=780;
+        x4Speed=0.25,y4Speed=0.5;
+        if(bottom[0]==1&&bottom[1]==1){
+            floatImg4();
+        }
+    }
+    // 设备⑤沿路径移动
+    var xx5=930,yy5=430;
+    var x5Speed=0.5,y5Speed=0;
+    function floatImg5(){
+        if(xx5>230) {
+            xx5 -= x5Speed;
+            mobile5.style.left = xx5 + "px";
+            clearLine();
+            distanceAll();
+            showLine();
+            setTimeout("floatImg5()", 0);
+        }
+    }
+    function move_Mobile5() {
+        xx5=930,yy5=430;
+        x5Speed=0.5,y5Speed=0;
+        if(bottom[0]==1&&bottom[1]==1){
+            floatImg5();
+        }
+    }
+
+    // 开机、关机
+    function check(statusofmec) {
+        if(bottom[0]==1) {			
+            if (statusofmec[0] == 0) {
+                r1.style.visibility = "hidden";
+                o1.style.visibility = "hidden";
+                y1.style.visibility = "hidden";
+                clearLine();
+                distanceAll();
+                showLine();
+                mec1_bar1.style.visibility = "hidden";
+                mec1_bar2.style.visibility = "hidden";
+                mec1_bar3.style.visibility = "hidden";
+                mec1_bar4.style.visibility = "hidden";
+                mec1_bar5.style.visibility = "hidden";
+                mec1_bar6.style.visibility = "hidden";
+            }
+            else {
+                r1.style.visibility = "visible";
+                o1.style.visibility = "visible";
+                y1.style.visibility = "visible";
+                clearLine();
+                distanceAll();
+                showLine();
+            }
+            if (statusofmec[1] == 0) {
+                r2.style.visibility = "hidden";
+                o2.style.visibility = "hidden";
+                y2.style.visibility = "hidden";
+                clearLine();
+                distanceAll();
+                showLine();
+                mec2_bar1.style.visibility = "hidden";
+                mec2_bar2.style.visibility = "hidden";
+                mec2_bar3.style.visibility = "hidden";
+                mec2_bar4.style.visibility = "hidden";
+                mec2_bar5.style.visibility = "hidden";
+                mec2_bar6.style.visibility = "hidden";
+            }
+            else {
+                r2.style.visibility = "visible";
+                o2.style.visibility = "visible";
+                y2.style.visibility = "visible";
+                clearLine();
+                distanceAll();
+                showLine();
+            }
+            if (statusofmec[2] == 0) {
+                r3.style.visibility = "hidden";
+                o3.style.visibility = "hidden";
+                y3.style.visibility = "hidden";
+                clearLine();
+                distanceAll();
+                showLine();
+                mec3_bar1.style.visibility = "hidden";
+                mec3_bar2.style.visibility = "hidden";
+                mec3_bar3.style.visibility = "hidden";
+                mec3_bar4.style.visibility = "hidden";
+                mec3_bar5.style.visibility = "hidden";
+                mec3_bar6.style.visibility = "hidden";
+            }
+            else{
+                r3.style.visibility = "visible";
+                o3.style.visibility = "visible";
+                y3.style.visibility = "visible";
+                clearLine();
+                distanceAll();
+                showLine();
+            }
+        }
+    }
+</script>
+</html>
